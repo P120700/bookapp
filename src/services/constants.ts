@@ -4,6 +4,6 @@ export const REMOTE_CONFIG = {
 };
 
 export const INITIAL_REMOTE_CONFIG = {
-  [REMOTE_CONFIG.JSON_DATA]: 'disabled',
-  [REMOTE_CONFIG.DETAILS_CAROUSEL]: 'disabled',
+  [REMOTE_CONFIG.JSON_DATA]: '',
+  [REMOTE_CONFIG.DETAILS_CAROUSEL]: '',
 };

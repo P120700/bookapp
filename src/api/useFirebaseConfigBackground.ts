@@ -10,29 +10,37 @@ export const useFirebaseConfigBackground = () => {
   const setCarouselBooks = useStore((store) => store.setCarouselBooks);
 
   const getAndStoreJsonDataFirebase = () => {
-    const {
-      books,
-      top_banner_slides: topBannerSlides,
-      you_will_like_section: youWillLikeSectionRaw,
-    } = JSON.parse(
-      firebaseRemoteConfig.getValue(REMOTE_CONFIG.JSON_DATA).asString()
-    );
-    const youWillLikeSection = youWillLikeSectionRaw.map((id) =>
-      books.find((book) => book.id === id)
-    );
-    updateJsonDataFirebaseConfig({
-      books,
-      topBannerSlides,
-      youWillLikeSection,
-    });
+    try {
+      const {
+        books,
+        top_banner_slides: topBannerSlides,
+        you_will_like_section: youWillLikeSectionRaw,
+      } = JSON.parse(
+        firebaseRemoteConfig.getValue(REMOTE_CONFIG.JSON_DATA).asString()
+      );
+      const youWillLikeSection = youWillLikeSectionRaw.map((id) =>
+        books.find((book) => book.id === id)
+      );
+      updateJsonDataFirebaseConfig({
+        books,
+        topBannerSlides,
+        youWillLikeSection,
+      });
+    } catch (e) {
+      console.log('Error during getting JsonDataFirebaseConfig: ', e);
+    }
   };
 
   const getAndStoreDetailsCarouselFirebase = () => {
-    const { books } = JSON.parse(
-      firebaseRemoteConfig.getValue(REMOTE_CONFIG.DETAILS_CAROUSEL).asString()
-    );
+    try {
+      const { books } = JSON.parse(
+        firebaseRemoteConfig.getValue(REMOTE_CONFIG.DETAILS_CAROUSEL).asString()
+      );
 
-    setCarouselBooks(books);
+      setCarouselBooks(books);
+    } catch (e) {
+      console.log('Error during getting DetailsCarouselFirebase: ', e);
+    }
   };
 
   useEffect(() => {
